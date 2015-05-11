@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="lib/angularjs/angular.js"></script>
+	<script src="lib/ng-file-upload/ng-file-upload-shim.min.js"></script>
+	<script src="lib/ng-file-upload/ng-file-upload.js"></script>
+	<script src="lib/jquery/dist/jquery.min.js"></script>
+	<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="js/app.js"></script>
+
+	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+
+	<title>My file repo</title>
+</head>
+<body ng-app="fileApp">
+	<style>
+		.drop-box {
+			background: #F8F8F8;
+			border: 2px dashed #DDD;
+			height:300px;
+			text-align: center;
+			padding-top: 25px;
+			margin: auto;
+		}
+		.dragover {
+			border: 3px dashed MediumSeaGreen;
+		}
+	</style>
+
+	<div class="container" ng-controller="fileController">
+		<div class="row">
+			<div ngf-drop ng-model="files" class="col-lg-12 panel well text-center" ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'.jpg,.png,.pdf'">
+				<h3>Drop Images or PDF files here</h3>
+			</div>
+			<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+			<table class="table">
+				<tr ng-repeat="name in uploaded">
+					<td width="80%">
+						<a target="_blank" href="/view/{{ name }}">
+							<img height="80" src="/view/{{ name }}">
+							<br>{{ name }}
+						</a>
+					</td>
+					<td align="right">
+						<button class="btn btn-default" ng-click="delete(name)">
+							<span class="glyphicon glyphicon-trash"></span> Delete
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
